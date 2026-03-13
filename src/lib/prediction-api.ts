@@ -3,10 +3,9 @@ import { indianStates } from '@/data/states';
 import { syndromes } from '@/data/syndromes';
 import { PredictionInput, PredictionResult } from '@/types';
 
-const DEFAULT_BACKEND_URL = 'https://kalpokoch-virus-pred.hf.space';
 const REQUEST_TIMEOUT_MS = 20000;
 
-const BACKEND_URL = (import.meta.env.VITE_BACKEND_BASE_URL || DEFAULT_BACKEND_URL).replace(/\/$/, '');
+const BACKEND_URL = (import.meta.env.VITE_BACKEND_BASE_URL || '').replace(/\/$/, '');
 
 const symptomIdToBackendKey: Record<string, string> = {
   s01: 'HEADACHE',

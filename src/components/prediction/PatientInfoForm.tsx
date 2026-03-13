@@ -43,7 +43,7 @@ export function PatientInfoForm({ patientInfo, setPatientInfo, states, districts
     return patientInfo.state ? effectiveDistrictsByState[patientInfo.state] || [] : [];
   }, [effectiveDistrictsByState, patientInfo.state]);
 
-  const isDistrictDisabled = !patientInfo.state || availableDistricts[0] === 'District data coming soon';
+  const isDistrictDisabled = !patientInfo.state || availableDistricts.length === 0;
 
   return (
     <Card>
