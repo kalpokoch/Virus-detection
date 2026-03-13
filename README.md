@@ -26,6 +26,27 @@ npm run dev
 
 The application will be available at `http://localhost:8080`
 
+## Backend Integration (FastAPI)
+
+The prediction page is integrated with a FastAPI backend endpoint at `/predict`.
+
+1. Copy `.env.example` to `.env`
+2. Set `VITE_BACKEND_BASE_URL` to your backend URL
+3. Start frontend and backend servers
+
+Example:
+
+```env
+VITE_BACKEND_BASE_URL=https://kalpokoch-virus-pred.hf.space
+```
+
+Notes:
+
+- Frontend sends all required backend fields for prediction.
+- Frontend fetches location/encoder mappings from `/location-mappings` (or `/locations` alias).
+- Frontend consumes `state_mapping` and `district_mapping` from backend for authoritative encoding.
+- If backend location mappings are temporarily unavailable, it falls back to local state and district lists with deterministic index-based encoding.
+
 ## Available Scripts
 
 - `npm run dev` - Start the development server

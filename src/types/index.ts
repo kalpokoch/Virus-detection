@@ -26,10 +26,27 @@ export interface PredictionInput {
   selectedSymptomIds: string[];
 }
 
+export interface PredictionCandidate {
+  virus: string;
+  virusId: number;
+  confidence: number;
+}
+
+export interface SubClassification {
+  predictedSubVirus: string;
+  predictedSubVirusId: number;
+  subConfidence: number;
+  top5SubPredictions: PredictionCandidate[];
+}
+
 export interface PredictionResult {
   virusName: string;
+  virusId: number;
   confidence: number;
-  topSymptoms: string[];
+  topPredictions: PredictionCandidate[];
+  subClassification?: SubClassification;
+  predictionId?: string;
+  timestamp: string;
 }
 
 export interface Contributor {

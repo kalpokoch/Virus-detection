@@ -12,9 +12,16 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
 interface PatientInfoFormProps {
   patientInfo: PatientInfo;
   setPatientInfo: React.Dispatch<React.SetStateAction<PatientInfo>>;
+  states?: string[];
+  districtsByStateMap?: Record<string, string[]>;
 }
 
-export function PatientInfoForm({ patientInfo, setPatientInfo }: PatientInfoFormProps) {
+export function PatientInfoForm({ patientInfo, setPatientInfo, states, districtsByStateMap }: PatientInfoFormProps) {
+  const effectiveStates = states && states.length ? states : indianStates;
+  const effectiveDistrictsByState = districtsByStateMap && Object.keys(districtsByStateMap).length
+    ? districtsByStateMap
+    : districtsByState;
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPatientInfo(prev => ({
@@ -33,8 +40,8 @@ export function PatientInfoForm({ patientInfo, setPatientInfo }: PatientInfoForm
   };
 
   const availableDistricts = useMemo(() => {
-    return patientInfo.state ? districtsByState[patientInfo.state] || [] : [];
-  }, [patientInfo.state]);
+    return patientInfo.state ? effectiveDistrictsByState[patientInfo.state] || [] : [];
+  }, [effectiveDistrictsByState, patientInfo.state]);
 
   const isDistrictDisabled = !patientInfo.state || availableDistricts[0] === 'District data coming soon';
 
@@ -82,7 +89,7 @@ export function PatientInfoForm({ patientInfo, setPatientInfo }: PatientInfoForm
             <Select onValueChange={handleSelectChange('state')} value={patientInfo.state || undefined}>
               <SelectTrigger><SelectValue placeholder="Select state" /></SelectTrigger>
               <SelectContent>
-                {indianStates.map(state => <SelectItem key={state} value={state}>{state}</SelectItem>)}
+                {effectiveStates.map(state => <SelectItem key={state} value={state}>{state}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
