@@ -51,11 +51,11 @@ export function PatientInfoForm({ patientInfo, setPatientInfo, states, districts
         <CardTitle className="border-b pb-3 text-lg font-semibold">Patient Information</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 items-start gap-4">
           <div className="grid gap-2">
             <Label htmlFor="age">Age</Label>
-            <Input id="age" name="age" type="number" min="0" placeholder="e.g., 25" value={patientInfo.age} onChange={handleInputChange} />
-            <p className="text-xs text-muted-foreground">Values &lt; 1 treated as months.</p>
+            <Input id="age" name="age" type="number" min="0" max="120" step="0.1" placeholder="e.g., 25" value={patientInfo.age} onChange={handleInputChange} />
+            <p className="text-xs text-muted-foreground">Values &lt; 1 treated as zero.</p>
           </div>
           <div className="grid gap-2">
             <Label htmlFor="sex">Sex</Label>
@@ -64,7 +64,7 @@ export function PatientInfoForm({ patientInfo, setPatientInfo, states, districts
               <SelectContent>
                 <SelectItem value="Male">Male</SelectItem>
                 <SelectItem value="Female">Female</SelectItem>
-                <SelectItem value="Other">Other</SelectItem>
+                {/* <SelectItem value="Other">Other</SelectItem> */}
               </SelectContent>
             </Select>
           </div>

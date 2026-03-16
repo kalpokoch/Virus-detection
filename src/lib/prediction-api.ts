@@ -138,18 +138,63 @@ function toNumericMap(input?: Record<string, number | string>): Record<string, n
   }, {});
 }
 
+/**
+ * Finds the closest matching key in a record for a given name.
+ * Tries (in order): exact → case-insensitive → one string is a prefix of the other.
+ * Returns undefined if no reasonable match is found.
+ */
+function findBestKey(name: string, record: Record<string, number>): number | undefined {
+  // 1. Exact
+  if (record[name] !== undefined) return record[name];
+
+  const nameLower = name.toLowerCase();
+
+  // 2. Case-insensitive
+  for (const [k, v] of Object.entries(record)) {
+    if (k.toLowerCase() === nameLower) return v;
+  }
+
+  // 3. Prefix match in either direction (handles "Telangana" ↔ "Telanganas")
+  for (const [k, v] of Object.entries(record)) {
+    const kLower = k.toLowerCase();
+    if (kLower.startsWith(nameLower) || nameLower.startsWith(kLower)) return v;
+  }
+
+  return undefined;
+}
+
 function normalizeLocationMappings(payload: BackendLocationMappingsResponse | null): LocationMappings | null {
   if (!payload) {
     return null;
   }
 
-  const states = payload.states || [];
   const districtsByState = payload.districts_by_state || {};
-  const stateCodeByName = toNumericMap(payload.state_mapping);
+  const rawStateMapping = toNumericMap(payload.state_mapping);
   const districtCodeByName = toNumericMap(payload.district_mapping);
 
-  if (!states.length && !Object.keys(districtsByState).length && !Object.keys(stateCodeByName).length && !Object.keys(districtCodeByName).length) {
+  if (
+    !Object.keys(districtsByState).length &&
+    !(payload.states || []).length &&
+    !Object.keys(rawStateMapping).length &&
+    !Object.keys(districtCodeByName).length
+  ) {
     return null;
+  }
+
+  // Use districts_by_state keys as canonical state names — district lookup
+  // depends on them. The backend's `states` array can have typos (e.g.
+  // "Telanganas") that don't match these keys.
+  const canonicalStates = Object.keys(districtsByState).sort((a, b) => a.localeCompare(b));
+  const states = canonicalStates.length > 0 ? canonicalStates : (payload.states || []);
+
+  // Re-map state encoding to canonical names using best-match lookup so that
+  // minor backend typos (e.g. "Telanganas" vs "Telangana") still resolve.
+  const stateCodeByName: Record<string, number> = {};
+  for (const stateName of states) {
+    const code = findBestKey(stateName, rawStateMapping);
+    if (code !== undefined) {
+      stateCodeByName[stateName] = code;
+    }
   }
 
   return {

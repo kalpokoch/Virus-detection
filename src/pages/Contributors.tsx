@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { FundingBanner } from "@/components/home/FundingBanner";
+// import { FundingBanner } from "@/components/home/FundingBanner";
 import { contributors } from "@/data/contributors";
 import { Contributor } from "@/types";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,7 @@ const RoleBadge = ({ role }: { role: Contributor['role'] }) => {
 export default function Contributors() {
   return (
     <>
-      <FundingBanner />
+      {/* <FundingBanner /> */}
       <div className="container mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl font-light tracking-tight text-foreground sm:text-5xl">

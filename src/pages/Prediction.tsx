@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { FundingBanner } from '@/components/home/FundingBanner';
+// import { FundingBanner } from '@/components/home/FundingBanner';
 import { PatientInfoForm } from '@/components/prediction/PatientInfoForm';
 import { ResultCard } from '@/components/prediction/ResultCard';
 import { SymptomGrid } from '@/components/prediction/SymptomGrid';
@@ -123,7 +123,7 @@ export default function Prediction() {
 
   return (
     <>
-      <FundingBanner />
+      {/* <FundingBanner /> */}
       <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[380px_1fr]">
           <aside className="w-full lg:sticky lg:top-24 self-start">
