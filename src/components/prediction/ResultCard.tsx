@@ -1,16 +1,18 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 import { PredictionResult } from "@/types";
 import { Clock } from "lucide-react";
 
 interface ResultCardProps {
   result: PredictionResult;
+  className?: string;
 }
 
-export function ResultCard({ result }: ResultCardProps) {
+export function ResultCard({ result, className }: ResultCardProps) {
   return (
-    <div className="mt-8 animate-in fade-in duration-500">
+    <div className={cn("mt-8 animate-in fade-in duration-500", className)}>
       <Card>
         <CardHeader>
           <div className="flex justify-between items-center">
@@ -24,7 +26,7 @@ export function ResultCard({ result }: ResultCardProps) {
         <CardContent className="space-y-6">
           <div>
             <p className="text-sm text-muted-foreground">Most Likely Virus</p>
-            <h2 className="text-3xl font-semibold text-primary">{result.virusName}</h2>
+            <h2 className="text-2xl font-semibold text-primary sm:text-3xl">{result.virusName}</h2>
             <p className="text-xs text-muted-foreground mt-1">Virus ID: {result.virusId}</p>
           </div>
           <div>

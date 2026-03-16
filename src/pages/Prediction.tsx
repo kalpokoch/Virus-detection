@@ -6,6 +6,14 @@ import { ResultCard } from '@/components/prediction/ResultCard';
 import { SymptomGrid } from '@/components/prediction/SymptomGrid';
 import { SyndromeSelector } from '@/components/prediction/SyndromeSelector';
 import { PageHeader } from '@/components/shared/PageHeader';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { useToast } from '@/components/ui/use-toast';
 import { fetchLocationOptions, predictVirus } from '@/lib/prediction-api';
 import { PatientInfo, PredictionResult } from '@/types';
@@ -21,6 +29,7 @@ export default function Prediction() {
   const [selectedSyndrome, setSelectedSyndrome] = useState('');
   const [selectedSymptomIds, setSelectedSymptomIds] = useState<string[]>([]);
   const [predictionResult, setPredictionResult] = useState<PredictionResult | null>(null);
+  const [isResultDialogOpen, setIsResultDialogOpen] = useState(false);
   const [isPredicting, setIsPredicting] = useState(false);
   const [states, setStates] = useState<string[]>([]);
   const [districtsByStateMap, setDistrictsByStateMap] = useState<Record<string, string[]>>({});
@@ -106,6 +115,7 @@ export default function Prediction() {
       });
 
       setPredictionResult(result);
+      setIsResultDialogOpen(true);
       toast({
         title: 'Prediction successful',
         description: `Top prediction: ${result.virusName} (${result.confidence.toFixed(1)}%).`,
@@ -120,6 +130,13 @@ export default function Prediction() {
     } finally {
       setIsPredicting(false);
     }
+  };
+
+  const handleStartNewAnalysis = () => {
+    setSelectedSyndrome('');
+    setSelectedSymptomIds([]);
+    setPredictionResult(null);
+    setIsResultDialogOpen(false);
   };
 
   return (
@@ -146,9 +163,32 @@ export default function Prediction() {
             <Button onClick={handlePredict} className="w-full mt-6 py-6 text-base rounded-xl" disabled={isPredicting}>
               {isPredicting ? 'Predicting...' : 'Predict Virus →'}
             </Button>
-            {predictionResult && <ResultCard result={predictionResult} />}
           </main>
         </div>
+
+        <Dialog open={isResultDialogOpen} onOpenChange={setIsResultDialogOpen}>
+          <DialogContent className="w-[calc(100vw-1rem)] max-w-3xl max-h-[90vh] overflow-hidden p-0 gap-0 sm:w-full">
+            <DialogHeader className="border-b px-4 py-4 pr-12 sm:px-6">
+              <DialogTitle>Prediction Result</DialogTitle>
+              <DialogDescription>
+                Review the model output below, then start a new analysis when ready.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="max-h-[calc(90vh-10.5rem)] overflow-y-auto px-4 pb-4 sm:px-6 sm:pb-6">
+              {predictionResult && <ResultCard result={predictionResult} className="mt-4" />}
+            </div>
+
+            <DialogFooter className="border-t px-4 py-3 sm:px-6 sm:py-4 gap-2">
+              <Button className="w-full sm:w-auto" variant="outline" onClick={() => setIsResultDialogOpen(false)}>
+                Close
+              </Button>
+              <Button className="w-full sm:w-auto" onClick={handleStartNewAnalysis}>
+                Start New Analysis
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );
