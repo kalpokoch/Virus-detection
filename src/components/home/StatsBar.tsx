@@ -1,18 +1,32 @@
+import LogoLoop, { type LogoItem } from "@/components/shared/LogoLoop";
+
 export function StatsBar() {
-  const items = ["ICMR Funded", "VRDL Network", "AI-Powered", "Government of India Initiative"];
+  const items = ["ICMR Funded", "VRDLN Network", "AI-Powered", "Government of India Initiative"];
+
+  const logos: LogoItem[] = items.map((item) => ({
+    node: (
+      <span className="inline-flex items-center text-sm font-medium text-muted-foreground whitespace-nowrap">
+        {item}
+        <span className="mx-4 text-muted-foreground/70" aria-hidden>
+          •
+        </span>
+      </span>
+    ),
+    ariaLabel: item,
+    title: item,
+  }));
 
   return (
-    <div className="w-full border-y bg-card py-8">
-      <div className="container flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4 md:px-6 md:justify-between">
-        {items.map((item, index) => (
-          <div key={item} className="flex items-center gap-x-6">
-            <span className="text-sm font-medium text-foreground">{item}</span>
-            {index < items.length - 1 && (
-              <span className="hidden text-muted-foreground md:inline">·</span>
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="w-full border-y bg-card py-4">
+      <LogoLoop
+        logos={logos}
+        speed={28}
+        direction="left"
+        logoHeight={14}
+        gap={0}
+        pauseOnHover
+        ariaLabel="Trust badges"
+      />
     </div>
   );
 }
