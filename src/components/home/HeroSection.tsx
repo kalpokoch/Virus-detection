@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { QuickStats, type QuickStat } from "@/components/home/QuickStats";
 
-const quickStats = [
-  { label: "Patient Records Analysed", value: "5.4M+" },
-  { label: "Viral Pathogens Covered", value: "38" },
-  { label: "VRDLN Labs Across India", value: "150+" },
+const quickStats: QuickStat[] = [
+  { label: "Patient Records Analysed", value: 5.4, suffix: "M+", duration: 2.5 },
+  { label: "Viral Pathogens Covered", value: 38, duration: 2 },
+  { label: "VRDLN Labs Across India", value: 150, suffix: "+", duration: 2 },
 ];
 
 export function HeroSection() {
@@ -108,14 +109,7 @@ export function HeroSection() {
           >
             <CardContent className="p-0" style={{ transform: 'translateZ(30px)' }}>
               <h3 className="mb-6 text-lg font-semibold text-foreground">Quick Stats</h3>
-              <div className="grid grid-cols-3 gap-4">
-                {quickStats.map((stat) => (
-                  <div key={stat.label} className="flex flex-col items-center text-center">
-                    <span className="text-4xl font-semibold text-primary">{stat.value}</span>
-                    <span className="text-sm text-muted-foreground">{stat.label}</span>
-                  </div>
-                ))}
-              </div>
+              <QuickStats stats={quickStats} />
             </CardContent>
           </Card>
         </div>

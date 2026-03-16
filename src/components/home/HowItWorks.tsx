@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SectionHeader } from "@/components/shared/SectionHeader";
+import SpotlightCard from "@/components/shared/SpotlightCard";
 
 const steps = [
   {
@@ -29,17 +29,17 @@ export function HowItWorks() {
         />
         <div className="mx-auto mt-12 grid max-w-5xl gap-8 lg:grid-cols-3">
           {steps.map((step) => (
-            <Card key={step.step}>
-              <CardHeader>
-                <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent font-mono text-sm font-medium text-primary">
-                  {step.step}
-                </div>
-                <CardTitle>{step.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
-              </CardContent>
-            </Card>
+            <SpotlightCard
+              key={step.step}
+              className="h-full"
+              spotlightColor="rgba(34, 197, 94, 0.2)"
+            >
+              <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent font-mono text-sm font-medium text-primary">
+                {step.step}
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
+              <p className="mt-3 text-sm text-muted-foreground">{step.description}</p>
+            </SpotlightCard>
           ))}
         </div>
       </div>
