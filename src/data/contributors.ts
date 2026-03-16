@@ -32,6 +32,7 @@ export const contributors: Contributor[] = [
     name: 'Amity Centre for Artificial Intelligence',
     role: 'developer',
     description: 'AI model design, development, and deployment by Amity Centre for Artificial Intelligence.',
-    logo: acaiLogo
+    logo: acaiLogo,
+    website: 'https://amity.edu/noida/acai/'
   }
 ];
