@@ -70,7 +70,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.3, ease: "easeOut" }}
             >
-              VRDLN - Virus Research and Diagnosis Laboratory Network
+              Virus Research and Diagnosis Laboratory Network
             </motion.p>
           </div>
           <p className="max-w-[600px] text-lg font-light text-muted-foreground md:text-xl mt-6">
