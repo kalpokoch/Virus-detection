@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -58,11 +59,19 @@ export function HeroSection() {
       <div className="container relative z-10 grid min-h-[85vh] items-center gap-12 px-4 pt-20 pb-12 md:px-6 lg:grid-cols-2 lg:gap-20">
         <div className="relative z-10 flex flex-col justify-center space-y-6">
           <h1 className="text-5xl font-light tracking-tight text-foreground sm:text-6xl md:text-7xl leading-[1.1]">
-            Virus Recommender System for VRDLN
+            Virus Recommender System for{" "}
+            <span className="text-primary">VRDLN</span>
           </h1>
-          <p className="max-w-[600px] text-lg font-light text-muted-foreground">
-            Virus Research and Diagnosis Laboratory Network
-          </p>
+          <div className="max-w-[600px] min-h-[3.25rem]">
+            <motion.p
+              className="text-lg font-light italic text-muted-foreground"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.3, ease: "easeOut" }}
+            >
+              VRDLN - Virus Research and Diagnosis Laboratory Network
+            </motion.p>
+          </div>
           <p className="max-w-[600px] text-lg font-light text-muted-foreground md:text-xl mt-6">
             Advancing diagnostic decision making through AI
           </p>
