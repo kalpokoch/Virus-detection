@@ -6,7 +6,7 @@ import dhrLogo from "@/assets/dhr-logo.webp";
 
 export function Footer() {
   return (
-    <footer className="bg-muted">
+    <footer className="w-full bg-muted">
       <div className="container mx-auto px-4 py-16 md:px-6">
         <div className="flex w-full flex-col justify-between gap-12 lg:flex-row lg:items-start">
           {/* Left Section - Logo and Description */}
