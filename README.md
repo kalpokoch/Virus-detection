@@ -34,12 +34,6 @@ The prediction page is integrated with a FastAPI backend endpoint at `/predict`.
 2. Set `VITE_BACKEND_BASE_URL` to your backend URL
 3. Start frontend and backend servers
 
-Example:
-
-```env
-VITE_BACKEND_BASE_URL=https://kalpokoch-virus-pred.hf.space
-```
-
 Notes:
 
 - Frontend sends all required backend fields for prediction.
