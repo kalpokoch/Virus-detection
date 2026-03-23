@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { useMeasure, useWindowSize } from "@uidotdev/usehooks";
 import { VariantProps, cva } from "class-variance-authority";
-import { HTMLMotionProps, MotionValue, motion, useScroll, useTransform } from "motion/react";
+import { HTMLMotionProps, MotionValue, motion, useScroll, useSpring, useTransform } from "motion/react";
 
 import { cn } from "@/lib/utils";
 
@@ -92,16 +92,22 @@ export const ProcessCard: React.FC<ProcessCardProps> = ({
   ...props
 }) => {
   const { scrollYProgress } = useContainerScrollContext();
-  const start = index / itemsLength;
-  const end = start + 1 / itemsLength;
+  const segment = 1 / itemsLength;
+  const start = Math.max(0, index * segment - segment * 0.35);
+  const end = Math.min(1, (index + 1) * segment + segment * 0.45);
   const [ref, { width: measuredWidth }] = useMeasure();
   const { width: viewportWidth } = useWindowSize();
 
-  const x = useTransform(
+  const xRaw = useTransform(
     scrollYProgress,
     [start, end],
     [viewportWidth ?? 0, -((measuredWidth ?? 0) * index) + 64 * index],
   );
+  const x = useSpring(xRaw, {
+    stiffness: 75,
+    damping: 26,
+    mass: 0.9,
+  });
 
   return (
     <motion.div
