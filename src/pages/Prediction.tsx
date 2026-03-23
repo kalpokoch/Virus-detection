@@ -33,6 +33,7 @@ export default function Prediction() {
   const [isPredicting, setIsPredicting] = useState(false);
   const [states, setStates] = useState<string[]>([]);
   const [districtsByStateMap, setDistrictsByStateMap] = useState<Record<string, string[]>>({});
+  const [resetKey, setResetKey] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -67,6 +68,13 @@ export default function Prediction() {
     setSelectedSymptomIds(prev =>
       prev.includes(id) ? prev.filter(sId => sId !== id) : [...prev, id]
     );
+  };
+
+  const resetPredictionInputs = () => {
+    setPatientInfo({ ...initialPatientInfo });
+    setSelectedSyndrome('');
+    setSelectedSymptomIds([]);
+    setResetKey(prev => prev + 1);
   };
 
   const handlePredict = async () => {
@@ -116,6 +124,7 @@ export default function Prediction() {
 
       setPredictionResult(result);
       setIsResultDialogOpen(true);
+      resetPredictionInputs();
       toast({
         title: 'Prediction successful',
         description: `Top prediction: ${result.virusName} (${result.confidence.toFixed(1)}%).`,
@@ -133,8 +142,7 @@ export default function Prediction() {
   };
 
   const handleStartNewAnalysis = () => {
-    setSelectedSyndrome('');
-    setSelectedSymptomIds([]);
+    resetPredictionInputs();
     setPredictionResult(null);
     setIsResultDialogOpen(false);
   };
@@ -151,6 +159,7 @@ export default function Prediction() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[380px_1fr]">
           <aside className="w-full lg:sticky lg:top-24 self-start">
             <PatientInfoForm
+              key={`patient-info-${resetKey}`}
               patientInfo={patientInfo}
               setPatientInfo={setPatientInfo}
               states={states}
@@ -158,8 +167,16 @@ export default function Prediction() {
             />
           </aside>
           <main className="space-y-6">
-            <SyndromeSelector selectedSyndrome={selectedSyndrome} setSelectedSyndrome={setSelectedSyndrome} />
-            <SymptomGrid selectedSymptomIds={selectedSymptomIds} onToggleSymptom={handleToggleSymptom} />
+            <SyndromeSelector
+              key={`syndrome-${resetKey}`}
+              selectedSyndrome={selectedSyndrome}
+              setSelectedSyndrome={setSelectedSyndrome}
+            />
+            <SymptomGrid
+              key={`symptom-grid-${resetKey}`}
+              selectedSymptomIds={selectedSymptomIds}
+              onToggleSymptom={handleToggleSymptom}
+            />
             <Button onClick={handlePredict} className="w-full mt-6 py-6 text-base rounded-xl" disabled={isPredicting}>
               {isPredicting ? 'Predicting...' : 'Predict Virus →'}
             </Button>
