@@ -24,7 +24,12 @@ export function HowItWorks() {
             const Icon = phase.icon;
             return (
               <Card key={phase.id} className="overflow-hidden">
-                <img src={phase.imageUrl} alt={phase.imageAlt} className="h-44 w-full object-cover" loading="lazy" />
+                <img
+                  src={phase.imageUrl}
+                  alt={phase.imageAlt}
+                  className="h-44 w-full border-b border-border/70 bg-muted/20 object-contain p-2"
+                  loading="lazy"
+                />
                 <CardContent className="space-y-4 p-6">
                   <div className="flex items-center gap-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full border bg-accent/50 text-primary">
@@ -74,7 +79,7 @@ export function HowItWorks() {
                       <img
                         src={phase.imageUrl}
                         alt={phase.imageAlt}
-                        className="h-52 w-full rounded-md border border-border/80 object-cover"
+                        className="h-56 w-full rounded-md border border-border/80 bg-muted/20 object-contain p-2"
                         loading="lazy"
                       />
                       <h3 className="text-2xl font-semibold leading-tight text-foreground">{phase.title}</h3>
