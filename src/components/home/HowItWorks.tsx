@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import {
   ContainerScroll,
@@ -6,6 +7,7 @@ import {
   ProcessCardBody,
   ProcessCardTitle,
 } from "@/components/ui/process-timeline";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { HOW_IT_WORKS_PHASES } from "@/data/how-it-works";
 
@@ -39,6 +41,11 @@ export function HowItWorks() {
                   </div>
                   <h3 className="text-lg font-semibold text-foreground">{phase.title}</h3>
                   <p className="text-sm leading-relaxed text-muted-foreground">{phase.description}</p>
+                  {index === HOW_IT_WORKS_PHASES.length - 1 ? (
+                    <Button asChild size="lg" className="rounded-full px-8 py-6 text-base">
+                      <Link to="/prediction">Run Application →</Link>
+                    </Button>
+                  ) : null}
                 </CardContent>
               </Card>
             );
@@ -84,6 +91,11 @@ export function HowItWorks() {
                       />
                       <h3 className="text-2xl font-semibold leading-tight text-foreground">{phase.title}</h3>
                       <p className="max-w-[60ch] text-sm leading-relaxed text-muted-foreground">{phase.description}</p>
+                      {index === HOW_IT_WORKS_PHASES.length - 1 ? (
+                        <Button asChild size="lg" className="w-fit rounded-full px-8 py-6 text-base">
+                          <Link to="/prediction">Run Application →</Link>
+                        </Button>
+                      ) : null}
                     </ProcessCardBody>
                   </ProcessCard>
                 );
