@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import acaiLogo from "@/assets/acai-logo.png";
+import nieLogo from "@/assets/nie-logo.png";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
@@ -42,14 +43,16 @@ export function Navbar() {
         <div className="container flex h-16 items-center px-4 md:px-6">
           <div className="flex items-center gap-4">
             <img 
-              src={acaiLogo} 
-              alt="Amity AI Logo" 
-              className="h-14 w-auto object-contain self-start"
+              src={nieLogo} 
+              alt="NIE Logo" 
+              className="h-9 w-auto object-contain self-start sm:h-12 md:h-14"
             />
             <div className="h-6 w-px bg-border" />
-            <span className="font-mono text-xs text-muted-foreground hidden sm:inline">
-              Virus Detection System
-            </span>
+             <img 
+              src={acaiLogo} 
+              alt="Amity AI Logo" 
+              className="h-9 w-auto object-contain self-start sm:h-12 md:h-14"
+            />
           </div>
           <nav className="ml-auto hidden md:flex items-center gap-6">
             {navLinks.map((link) => (

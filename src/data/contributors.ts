@@ -1,6 +1,6 @@
 import { Contributor } from "@/types";
 import icmrLogo from "@/assets/icmr-logo.png";
-import nieLogo from "@/assets/nie-logo.jpeg";
+import nieLogo from "@/assets/nie-logo.png";
 import dhrLogo from "@/assets/dhr-logo.webp";
 import acaiLogo from "@/assets/acai-logo.png";
 

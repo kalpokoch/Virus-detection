@@ -10,7 +10,7 @@ const RoleBadge = ({ role }: { role: Contributor['role'] }) => {
   const roleMap: Record<Contributor['role'], { text: string; className: string }> = {
     funder: { text: "Primary Funder", className: "bg-accent text-accent-foreground border-primary/20" },
     developer: { text: "Developed By", className: "bg-primary/10 text-primary border-primary/20" },
-    supporter: { text: "Supported By", className: "bg-muted text-muted-foreground border-border" },
+    supporter: { text: "Led By", className: "bg-muted text-muted-foreground border-border" },
   };
   const { text, className } = roleMap[role];
   return <Badge variant="outline" className={cn("font-medium", className)}>{text}</Badge>;
